@@ -6,7 +6,7 @@
         content="AlignDiff: Aligning Diverse Human Preferences via Behavior-customisable Diffusion Model">
   <!-- <meta name="keywords" content="Nerfies, D-NeRF, NeRF"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CoTDiffusion:Unlocking the Chain-of-Thought Reasoning in Diffusion Model for Robot Manipulation with Multimodal Prompts
+  <title>kisa-for-robotics
 </title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -50,7 +50,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Generate Subgoal Images before Act: Unlocking the Chain-of-Thought Reasoning in Diffusion Model for Robot Manipulation with Multimodal Prompts
+          <h1 class="title is-1 publication-title">KISA: A Unified Keyframe Identifier and Skill Annotator
+            for Long-Horizon Robotics Demonstrations
 </h1>
           <div class="is-size-5 publication-authors">
             <!-- <span class="author-block">
@@ -80,48 +81,6 @@
           </div> -->
 
           <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href=""
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-<!--              <span class="link-block">-->
-<!--                <a href=""-->
-<!--                   class="external-link button is-normal is-rounded is-dark">-->
-<!--                  <span class="icon">-->
-<!--                      <i class="ai ai-arxiv"></i>-->
-<!--                  </span>-->
-<!--                  <span>arXiv</span>-->
-<!--                </a>-->
-<!--              </span>-->
-
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://cotdiffusion.github.io/"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code(Coming Soon)</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <!-- <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a> -->
-            </div>
-
           </div>
         </div>
       </div>
@@ -137,11 +96,13 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Robotics agents often struggle to understand and follow the multi-modal prompts in complex manipulation scenes which are challenging to be sufficiently and accurately described by text alone. Moreover, for long-horizon manipulation tasks, the deviation from general instruction tends to accumulate if lack of intermediate guidance from high-level subgoals. For this, we consider can we <i>generate subgoal images before act</i> to enhance the instruction following in long-horizon manipulation with multi-modal prompts?
-Inspired by the great success of diffusion model in image generation tasks, we propose a novel hierarchical framework named as <b>CoTDiffusion</b> that incorporates diffusion model as a high-level planner to convert the general and multi-modal prompts into coherent visual subgoal plans, which further guide the low-level foundation model before action execution.
-We design a semantic alignment module that can anchor the progress of generated keyframes along a coherent generation chain, unlocking the chain-of-thought reasoning ability of diffusion model. Additionally, we propose bi-directional generation and frame concat mechanism to further enhance the fidelity of generated subgoal images and the accuracy of instruction following.
-The experiments cover various robotics manipulation scenarios including visual reasoning, visual rearrange, and visual constraints. CoTDiffusion achieves outstanding performance gain compared to the baselines without explicit subgoal generation, which proves that a subgoal image is worth a thousand words of instruction.
-The details and visualizations are available at <a href="https://cotdiffusion.github.io/">https://cotdiffusion.github.io/</a>.
+            Robotic manipulation tasks often span over long horizons and encapsulate multiple subtasks with different skills. Learning policies directly from long-horizon demonstrations is challenging without intermediate keyframes guidance and corresponding skill annotations.
+            Existing approaches for keyframe identification often struggle to offer reliable decomposition for low accuracy and fail to provide semantic relevance between keyframes and skills. 
+            For this, we propose a unified <b>K</b>eyframe <b>I</b>dentifier and <b>S</b>kill <b>A</b>notator（KISA） that utilizes pretrained visual-language representations for precise and interpretable decomposition of unlabeled demonstrations.
+            Specifically, we develop a simple yet effective temporal enhancement module that enriches frame-level representations with expanded receptive fields to capture semantic dynamics at the video level.
+            We further propose coarse contrastive learning and fine-grained monotonic encouragement to enhance the alignment between visual representations from keyframes and language representations from skills.
+            The experimental results across three benchmarks demonstrate that KISA outperforms competitive baselines in terms of accuracy and interpretability of keyframe identification.
+            Moreover, KISA exhibits robust generalization capabilities and the flexibility to incorporate various pretrained representations.
 <!--              \url{https://cotdiffusion.github.io}.</a>.-->
           </p>
         </div>
@@ -156,11 +117,13 @@ The details and visualizations are available at <a href="https://cotdiffusion.gi
     <h2 class="title is-3">Motivation Example</h2>
     <div style="display: flex; margin: auto; justify-content: center; width: 100%">
 <!--      <img style="width: 100%" src="./static/images/AlignDiff_main.svg"/>-->
-      <img style="width: 60%" src="./static/images/motivation.png"/>
+      <img style="width: 60%" src="./static/images/kisa_overview2_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-        <strong>11111A motivation example of robotics manipulation tasks in multi-modal instructions.</strong>  The subgoal images are worth a thousand words, inspiring us to propose a novel framework CoTDiffusion to generate goal images step-by-step before act.
+        <strong>Overview of Keyframe Identification.</strong>  
+        Both goal image similarity（LIV-I） and skill language similarity（LIV-L） struggle to stand out at keyframes. 
+        KISA can exhibit conspicuous peaks near groundtruth boundaries for accurate keyframe identification.  
       </p>
     </div>
     <!--/ Abstract. -->
@@ -170,34 +133,27 @@ The details and visualizations are available at <a href="https://cotdiffusion.gi
       <div class="column is-10 is-offset-1">  -->
     <h2 class="title is-3">Method</h2>
     <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 100%" src="./static/images/method.png"/>
+      <img style="width: 100%" src="./static/images/motivation_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-        <strong>Overview of CoTDiffusion.</strong> CoTDiffusion consists of a multi-modal encoder and vision encoder <em>V</em>, semantic alignment module <em>S</em>, conditional diffusion model <em>E</em>, and foundation model <em>F</em> for action planning.
-The prompt and observation tokens are combined and fed into the semantic alignment module to identify the current reasoning chain step, providing progressive guidance for the diffusion model to generate the next subgoal image.
-The generated keyframes are further fed to the foundation model which predicts action sequences to achieve the imagined goal scene and this recursive process repeats in a receding horizon control loop until the task is finished.
+        <strong>Motivation Example.</strong> 
+        Without historical context for semantic action cognition, two visually similar frames from different skills can confuse the alignment. Furthermore, the 
+        representation might overfit the alignment between isolated frames and skills, leading to over-identification or false-identification.
       </p>
     </div>
 
-
-
-
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 90%" src="./static/images/coarse_to_fine.png"/>
+    <div style="display: flex; margin: auto; justify-content: center; width: 100%">
+      <img style="width: 90%" src="./static/images/framework_v3_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-        <strong>The two phases of coarse-to-fine alignment module .</strong> First, the aligned module is coarsely pre-trained to predict residual mask patches between subgoal images for aligning spatial semantics, focusing on salient differences rather than pixel details in textures or colors.
-The semantic alignment module is then integrated into the diffusion model for step-wise image generation with fine-grained pixel reconstruction. Additionally, bi-directional generation and frame concatenation mechanism further enhance subgoal image fidelity and instruction following.      </p>
-    </div>
-
-                      <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 90%" src="./static/images/visualization_main.png"/>
-                        </div>
-          <div class="content has-text-justified" style="margin-top: 20px;">
-      <p class="caption"><br />
-        <strong>The visualization of CoTDiffusion</strong> in three typical long-horizon tasks with multi-modal prompts in VIMA-BENCH.    </div>
+        <strong>Overview framework of KISA.</strong>  
+        KISA first leverages a simple yet effective temporal enhancement module upon the pre-trained vision-language representation to 
+        obtain the video-level representation for each frame. During training, the alignment involves two branches: <b>Inter-skill</b>: we 
+        design coarse history-aware contrastive learning via constructing hard negative samples with mismatched historical contexts and incorrect skills. 
+        <b>Intra-skill</b> we additionally fine-grained monotonic alignment to encourage the capture of skill-aware progress within the sub-task, and prevent representation collapse to highly similarity within the same skill.
+      </div>
 
       <!-- </div>
     </div> -->
@@ -205,162 +161,88 @@ The semantic alignment module is then integrated into the diffusion model for st
     <hr style="border-top: 5px dotted #b8b8b8;">
     <h2 class="title is-3">Quantitative Results</h2>
     <!--/ Hopper. -->
-      <h3 class="title is-4">Main Evaluation on Success Rate</h3>
+      <h3 class="title is-4">The evaluation results of keyframe identification</h3>
           <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 60%" src="./static/images/table_1.png"/>
+      <img style="width: 60%" src="./static/images/table_1.jpg"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          The baselines can be divided into two kinds of planners, including <strong>abstract planner</strong> and <strong>visual planner</strong>.
-<strong>Abstract planner</strong> like Gato, Flamingo and VIMA directly map general prompts to subsequent actions in an end-to-end manner. Gato and Flamingo gets low success rates on long-horizon tasks without explicit subgoal generation to correct the accumulative deviation errors from the instructions.
-In contrast, <strong>visual planner</strong> like SuSIE and CoTDiffusion can generate intermediate goal images to guide the action planning, which can enhance instruction following for long-horizon tasks via visual planning.   </p>
+        We evaluate several baselines on the collected long-horizon demonstrations dataset with groundtruth skill labels three typical manipulation environments and report the mean and variance across 5 seeds. 
+        KISA significantly outperforms all baselines across three metrics, highlighting its superior ability in keyframe identification. 
+        Reward-driven keyframe extraction methods like VideoRLCS perform the worst among baselines. A potential reason is that the importance of the keyframe for reward prediction decreases when the horizon extends and the visual representation is not exploited. 
+        On the other hand, unsupervised methods like KTS without additional training, which solely relies on the similarity of visual embeddings for clustering, can already achieve a higher accuracy than VideoRLCS. 
+        This provides empirical insight that the visual information has great potential for keyframe identification. Moreover, we directly utilize pretrained robotics representations such as R3M, VIP, and LIV to assess the ability to identify keyframes. 
+        The accuracy improves in the order of R3M, VIP, and LIV, with the latter enjoying more fine-grained representation properties. 
+      </p>
     </div>
 
-      <h3 class="title is-4">Robustness to Insufficient Perception</h3>
+      <h3 class="title is-4">The comparisons of skill annotation</h3>
           <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 60%" src="./static/images/table_2.png"/>
+      <img style="width: 60%" src="./static/images/performance_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          The experiments demonstrate that CoTDiffusion enjoys better robustness to restricted perception than abstract planners, highlighting the benefits of hierarchical framework decoupled visual planning and action planning. Accurate and grounded subgoal images generated in visual planners provide supplemental visual context, which can partly compensate for the insufficient perception to aid robustness under single-view.
-The requirements for the low-level action planner are reduced to basic single-object manipulation primitives in short horizon by providing coherent subgoal images as visual landmarks, with less reliance on rich visual perceptions.   </div>
+        On all three classic robotics representations, the skill annotation accuracy of the `KISA-' 
+        version outperforms that of the `FT-' version, which follows the vanilla alignment technique with static representation. 
+    </div>
 
-
-      <h3 class="title is-4">Fidelity of Image Generation</h3>
+      <h3 class="title is-4">Zero-shot Results</h3>
           <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 60%" src="./static/images/table_3.png"/>
+      <img style="width: 60%" src="./static/images/table_2.jpg"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          With step-wise sub-prompts decomposed in advance, the performance of SuSIE gets largely raised but still underperforms CoTDiffusion, which has no need to explicitly decompose the general prompts and can generate subgoal images in an implicit chain-of-thought manner. The coarse-to-fine semantic alignment training training allows developing spatial reasoning prior to synthesis.
-Frame concatenation further guides coherent denoising by providing rich context information as visual priors to ground the current observation and enhance the fidelity of generation.  </div>
+        To systematically examine generalization capacities, we establish a 3-level protocol evaluating models on progressively more challenging unseen distributions without additional
+        training: (L1) Object Generalization: We evaluate L1 genralization on rich manipulation scenes from Maniskill2, with diverse object colors, shapes, numbers, and placements.
+        (L2) Combinatorial Generalization: We evaluate generalization on CALVIN for novel skill compositions that never appear in training and also examine the accuracy of decomposition in longer horizon cases. (L3) Embodiment Generalization.
 
-
-      <h3 class="title is-4">Accuracy of Instruction Following</h3>
+      <h3 class="title is-4">Combinatorial Generalization (L2) on CALVIN</h3>
           <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 60%" src="./static/images/table_4.png"/>
+      <img style="width: 60%" src="./static/images/horizon_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          We evaluate instruction following accuracy via CLIP similarity between generated keyframes and general prompts, normalized by the CLIP score between ground truth ultimate goal image and prompts. Without chain-of-thought reasoning abilities, SuSIE struggles to follow instructions when given general multi-modal prompts, let alone generate subgoal images with smooth progressions. The coarse alignment pretraining and bi-directional generation can assist CoTDiffusion in tracking the progress of generated keyframes throughout the entire chain and generate sequenced keyframes incrementally advancing prompt instructions.</div>
+        As the horizon extends, the combinatorial generalization ability of the KISA remains significantly stronger than baselines. 
+        This is primarily due to KISA’s ability to integrate historical frames to expand receptive fields, which allows it to better capture long-range skill dynamics beyond isolated
+        frames. Rather than overfitting to superficial environmental details, KISA focuses on learning on core semantics - reducing dependence on specific configurations or scenes.
 
-
-      <h3 class="title is-4">Generalization across Tasks</h3>
+      <h3 class="title is-4">Cross Embodiment Generalization (L3)</h3>
           <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 55%" src="./static/images/table_5.png"/>
+      <img style="width: 55%" src="./static/images/cross_embodiment4_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          We evaluate the generalization ability in three levels with increasing difficulty: placement generalization which randomizes the novel placement of objects (L1), object generalization which provides the objects with novel attributes (L2), and  task combinatorial generalization which complexes the prompts with extra novel instruction (L3).
-    When CoTDiffusion visualizes novel concepts into goal images, the foundation model can still accomplish the stack by simply achieving the provided subgoal, with no need to inherently understand novel skills like stack.
+        The illustrating example of LIV and KISA for zero-shot generalization from simulators on long-horizon real robotics demonstration datasets.
     </div>
 
-
-      <h3 class="title is-4">Ablation Studies of Horizon Length</h3>
+      <h3 class="title is-4">The Flexibility for Pre-trained Representations</h3>
           <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 55%" src="./static/images/table_6.png"/>
+      <img style="width: 55%" src="./static/images/table_3.jpg"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          We conduct an additional experiment by increasing the number of objects and the corresponding manipulation steps to evaluate the success rate of different methods on more complex and longer-horizon manipulation tasks. The results demonstrate that CoTDiffusion enjoys better robustness for longer horizons compared to abstract planners, with the benefit from the explicit visual subgoals providing improved guidance for following complex instructions.    </div>
+        KISA equips static frame-level representations with video-level understanding capability, which is flexible to incorporate with 
+        any existing visual representation backbone. We conduct comprehensive evaluations across R3M, VIP, and LIV through ablations studies of the proposed temporal en-
+        hancement module, history-aware contrastive learning, and monotonicity alignment components respectively.
 
-
-
-      <h3 class="title is-4">Ablation Studies of Model Capacity</h3>
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 66%" src="./static/images/table_7.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;">
-      <p class="caption"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-          We conduct additional ablation experiments on the model capacity of some key components, including the semantic alignment module, T5 tokenizer, and low-level foundation model. Based on the experiments, we chose T5-base, a 20M semantic alignment module, and a 40M foundation model as our final model configuration. </div>
-
-
-
- <hr style="border-top: 5px dotted #b8b8b8;">
-    <h2 class="title is-3">Qualitative Examples</h2>
-    <!--/ Hopper. -->
-<!--      <h3 class="title is-4">Main Evaluation on Success Rate</h3>-->
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 66%" src="./static/images/table_8.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;  justify-content: center;">
-      <p class="caption" style="text-align:center;"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-
-<strong>Visualization of CoTDiffusion and VIMA in visual rearrange long-horizon tasks with multi-modal prompts.</strong>  </p>
-    </div>
-
-
-<!--      <h3 class="title is-4">Main Evaluation on Success Rate</h3>-->
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 66%" src="./static/images/table_9.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;  justify-content: center;">
-      <p class="caption" style="text-align:center;"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-
-<strong>Visualization of CoTDiffusion and VIMA in visual reasoning long-horizon tasks with multi-modal prompts.</strong>  </p>
-    </div>
-
-<!-- <hr style="border-top: 5px dotted #b8b8b8;">-->
-<!--    <h2 class="title is-3">Qualitative Examples</h2>-->
-<!--    &lt;!&ndash;/ Hopper. &ndash;&gt;-->
-<!--      <h3 class="title is-4">Main Evaluation on Success Rate</h3>-->
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 66%" src="./static/images/table_10.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;  justify-content: center;">
-      <p class="caption" style="text-align:center;"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-
-<strong>Visualization of CoTDiffusion and VIMA in visual constraints long-horizon tasks with multi-modal prompts.</strong>  </p>
-    </div>
-
-
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 66%" src="./static/images/table_11.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;  justify-content: center;">
-      <p class="caption" style="text-align:center;"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-
-<strong>Visualization of CoTDiffusion and VIMA in novel generation tasks with novel concept with `stack'.</strong>  </p>
-    </div>
-
-
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 66%" src="./static/images/table_12.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;  justify-content: center;">
-      <p class="caption" style="text-align:center;"><br />
-<!--        <strong>The two phases of coarse-to-fine alignment module .</strong> -->
-
-<strong>Visualization of CoTDiffusion and VIMA in novel generation tasks with novel concept with `rotate'.</strong>  </p>
-    </div>
-
-
-<hr style="border-top: 5px dotted #b8b8b8;">
-    <!-- Method. -->
-    <!-- <div class="columns">
-      <div class="column is-10 is-offset-1">  -->
-    <h2 class="title is-3">Pseudocodes of CoTDiffusion</h2>
     <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-<!--      <img style="width: 100%" src="./static/images/AlignDiff_main.svg"/>-->
-      <img style="width: 80%" src="./static/images/table_13.png"/>
+      <img style="width: 66%" src="./static/images/mono_abla_main_text_v3_00.png"/>
     </div>
-<!--    <div class="content has-text-justified" style="margin-top: 20px;">-->
-<!--      <p class="caption"><br />-->
-<!--        <strong>A motivation example of robotics manipulation tasks in multi-modal instructions.</strong>  The subgoal images are worth a thousand words, inspiring us to propose a novel framework CoTDiffusion to generate goal images step-by-step before act.-->
-<!--      </p>-->
-<!--    </div>-->
+    <div class="content has-text-justified" style="margin-top: 20px;">
+      <p class="caption"><br />
+        <b>The heatmap between skills and frames from a long-horizon demonstration example on CALVIN.</b>
+        The comparisons between KISA w/o monotonic alignment (left) and KISA (right).
 
+    <h3 class="title is-4">The Effectiveness for Policy Learning</h3>
+      <div style="display: flex; margin: auto; justify-content: center; width: 100%">
+        <img style="width: 66%" src="./static/images/table_4.jpg"/>
+      </div>
+      <div class="content has-text-justified" style="margin-top: 20px;">
+        <p class="caption"><br />
+          Success rates on CALVIN including LCBC, LISA, and the variation with demonstration annotated by LIV and KISA. 
+        Based on LISA, we compare when provided with privileged information including explicit keyframes and skill annotations to avoid re-discovering skills, while retaining
+        low-level skill-conditioned policy learning for fair comparisons. Unsurprisingly, LISA+KISA achieves a significant performance improvement with annotated demonstrations, particularly in tasks with longer horizons.
+        
 <hr style="border-top: 5px dotted #b8b8b8;">
     <!-- Method. -->
     <!-- <div class="columns">
@@ -380,9 +262,13 @@ Frame concatenation further guides coherent denoising by providing rich context 
         <h2 class="title is-3">Conclusion</h2>
         <div class="content has-text-justified">
           <p>
-            We presented <strong>CoTDiffusion</strong>, a hierarchical framework that integrates diffusion model as high-level module to translate the general multi-modal prompts into coherent subgoal images, serves as the visual milestones to anchor the low-level foundation model to plan action sequences, termed as <i>generate subgoal images before act</i>. With the coarse-to-fine training for semantic alignment module, CoTDiffusion can identify the progress of generated subgoals images along reasoning chains, unlocking the chain-of-thought reasoning capabilities of diffusion model for long-horizon manipulation tasks. The experiments cover various long-horizon manipulation scenarios in VIMA-BENCH, and CoTDiffusion shows the strong instruction following and outstanding performance gain compared to existed methods without visual planning.
-Incorporating commonsense knowledge from pre-trained MLLM like GPT-4V provides an avenue for more generalizable and promising reasoning in CoTDiffusion, which leaves as our future work. .
-<!--              \url{https://cotdiffusion.github.io}.</a>.-->
+            In this paper, we introduce KISA, a unified framework to achieve accurate keyframe identification and skills annotation for long-horizon manipulation demonstrations. 
+            We propose a simple yet effective temporal enhanced module that can flexibly equip any existing pre-trained representations with expanded receptive fields to capture long-range
+            semantic dynamics, bridging the gap between static frame-level representation and video-level understanding. We further design coarse contrastive learning and fine-grained
+            monotonic encouragement to enhance the alignment between keyframes and skills. The experiment results demonstrate that KISA achieves more accurate and interpretable
+            keyframe identification than competitive baselines and enjoys the robust zero-shot generalization ability. Furthermore, demonstrations with accurate keyframes and interpretable
+            skills annotated by KISA can significantly facilitate policy learning. We believe that KISA can serve as a reliable tool to accurately annotate robotics demonstrations at a low cost,
+            potentially facilitating the research in robotics community.
           </p>
         </div>
       </div>
