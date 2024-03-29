@@ -120,7 +120,7 @@
     <h2 class="title is-3">Motivation Example</h2>
     <div style="display: flex; margin: auto; justify-content: center; width: 100%">
 <!--      <img style="width: 100%" src="./static/images/AlignDiff_main.svg"/>-->
-      <img style="width: 60%" src="./static/images/kisa_overview2_00.png"/>
+      <img style="width: 70%" src="./static/images/kisa_overview2_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
@@ -130,7 +130,7 @@
       </p>
     </div>
     <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 60%" src="./static/images/motivation_00.png"/>
+      <img style="width: 70%" src="./static/images/motivation_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
@@ -145,19 +145,8 @@
     <!-- <div class="columns">
       <div class="column is-10 is-offset-1">  -->
     <h2 class="title is-3">Method</h2>
-    <!-- <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 100%" src="./static/images/motivation_00.png"/>
-    </div>
-    <div class="content has-text-justified" style="margin-top: 20px;">
-      <p class="caption"><br />
-        <strong>Motivation Example.</strong> 
-        Without historical context for semantic action cognition, two visually similar frames from different skills can confuse the alignment. Furthermore, the 
-        representation might overfit the alignment between isolated frames and skills, leading to over-identification or false-identification.
-      </p>
-    </div> -->
-
     <div style="display: flex; margin: auto; justify-content: center; width: 100%">
-      <img style="width: 90%" src="./static/images/framework_v3_00.png"/>
+      <img style="width: 100%" src="./static/images/framework_v3_00.png"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
       <p class="caption"><br />
@@ -166,12 +155,25 @@
         obtain the video-level representation for each frame. During training, the alignment involves two branches: <b>Inter-skill</b>: we 
         design coarse history-aware contrastive learning via constructing hard negative samples with mismatched historical contexts and incorrect skills. 
         <b>Intra-skill</b> we additionally fine-grained monotonic alignment to encourage the capture of skill-aware progress within the sub-task, and prevent representation collapse to highly similarity within the same skill.
-      </div>
+    </div>
 
       <!-- </div>
     </div> -->
     <!--/ Method. -->
     <hr style="border-top: 5px dotted #b8b8b8;">
+
+    <h2 class="title is-3">Qualitative Results</h2>
+    <div style="display: flex; margin: auto; justify-content: center; width: 100%">
+      <img style="width: 70%" src="./static/images/kitchen0.png"/>
+    </div>
+    <div class="content has-text-justified" style="margin-top: 20px;">
+      <p class="caption"><br />
+        <strong>The Visualizaton of KISA in FrankaKitchen: </strong>  
+        Move the kettle to the top-left burner, activate the bottom burner, turn on the light switch, and open the slide cabinet.
+    </div>
+
+    <hr style="border-top: 5px dotted #b8b8b8;">
+    
     <h2 class="title is-3">Quantitative Results</h2>
 
       <video controls>
@@ -276,20 +278,9 @@
           Success rates on CALVIN including LCBC, LISA, and the variation with demonstration annotated by LIV and KISA. 
         Based on LISA, we compare when provided with privileged information including explicit keyframes and skill annotations to avoid re-discovering skills, while retaining
         low-level skill-conditioned policy learning for fair comparisons. Unsurprisingly, LISA+KISA achieves a significant performance improvement with annotated demonstrations, particularly in tasks with longer horizons.
-        
-<hr style="border-top: 5px dotted #b8b8b8;">
-    <!-- Method. -->
-    <!-- <div class="columns">
-      <div class="column is-10 is-offset-1">  -->
-<!--    <h2 class="title is-3">Conclusion</h2>-->
-<!--              <div class="content has-text-justified">-->
-<!--          <p>-->
-<!--            We presented \alg, a hierarchical framework that integrates diffusion model as high-level module to translate the general multi-modal prompts into coherent subgoal images, serves as the visual milestones to anchor the low-level foundation model to plan action sequences, termed as `generate subgoal images before act'. With the coarse-to-fine training for semantic alignment module, \alg can identify the progress of generated subgoals images along reasoning chains, unlocking the chain-of-thought reasoning capabilities of diffusion model for long-horizon manipulation tasks. The experiments cover various long-horizon manipulation scenarios in \vimabench, and \alg show the strong instruction following and outstanding performance gain compared to existed methods without visual planning.-->
-<!--Incorporating commonsense knowledge from pre-trained MLLM like GPT-4V provides an avenue for more generalizable and promising reasoning in \alg, which leaves as our future work. .-->
-<!--&lt;!&ndash;              \url{https://cotdiffusion.github.io}.</a>.&ndash;&gt;-->
-<!--          </p>-->
-<!--        </div>-->
-
+    
+    
+    <hr style="border-top: 5px dotted #b8b8b8;">
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
