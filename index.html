@@ -166,6 +166,7 @@
     <!-- <div style="display: flex; margin: auto; justify-content: center; width: 100%">
       <img style="width: 70%" src="./static/images/kitchen0.png"/>
     </div> -->
+    <h3 class="title is-4">Visualization of Keyframe Identification</h3>
     <div style="display: flex; justify-content: center; align-items: center;">
       <div style="width: 50%;">
         <img style="width: 100%;" src="./static/images/kitchen0.png" alt="Image 1"/>
@@ -214,6 +215,38 @@
         (right)Pick up the Charger, Move the Charger, and Insert the Charger into Receptacle.
     </div>
 
+    <h3 class="title is-4">Word Clouds</h3>
+    <div style="display: flex; margin: auto; justify-content: center; width: 100%">
+      <img style="width: 100%" src="./static/images/wordcloud.png"/>
+    </div>
+    <div class="content has-text-justified" style="margin-top: 20px;">
+      <p class="caption"><br />
+        <strong>World Clouds: </strong> 
+        To visually summarize the key aspects covered by the diverse manipulation skills in ManiSkill2, CALVIN, and FrankaKitchen
+        benchmarks, we created the word clouds. We now tokenize the instruction and for each skill code used in the
+        trajectory, record all the tokens from the language instruction. Once we have this mapping from skills to tokens, we can plot
+        heat maps and word clouds. The predominant terms reflect a heavy focus on interacting with household objects like boxes,
+        cans, bottles, tools, and tableware. Terms such as ”pick up”, ”move”, ”rotate”, and ”stack” indicate the skills that aim to test
+        fundamental robot capabilities in grasping, manipulating, and placing common items. The emergence of words depicting
+        spatial reasoning like ”left/right” and goal configurations highlights skills requiring contextual understanding and mapping
+        instructions to feasible actions. 
+      </p>
+    </div>
+
+    <h3 class="title is-4">t-SNE Visualization</h3>
+    <div style="display: flex; margin: auto; justify-content: center; width: 100%">
+      <img style="width: 100%" src="./static/images/wordcloud.png"/>
+    </div>
+    <div class="content has-text-justified" style="margin-top: 20px;">
+      <p class="caption"><br />
+        <strong>t-SNE Visualization of Skill Space in CALVIN </strong> 
+        reveals the relationship between the defined skills based on their visual
+        dynamics. Each point denotes one skill type, colored by category. The modular relationships indicate promise for the zero-shot
+        composition of new behaviors by leveraging similarity within the embedding space during policy learning.
+      </p>
+    </div>
+
+
     <hr style="border-top: 5px dotted #b8b8b8;">
 
     <h2 class="title is-3">Quantitative Results</h2>
@@ -239,8 +272,8 @@
       </video>
 
     <!--/ Hopper. -->
-      <h3 class="title is-4">The evaluation results of keyframe identification</h3>
-          <div style="display: flex; margin: auto; justify-content: center; width: 100%">
+    <h3 class="title is-4">The evaluation results of keyframe identification</h3>
+    <div style="display: flex; margin: auto; justify-content: center; width: 100%">
       <img style="width: 60%" src="./static/images/table_1.jpg"/>
     </div>
     <div class="content has-text-justified" style="margin-top: 20px;">
