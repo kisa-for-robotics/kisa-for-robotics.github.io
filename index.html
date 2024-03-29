@@ -386,39 +386,59 @@
         Based on LISA, we compare when provided with privileged information including explicit keyframes and skill annotations to avoid re-discovering skills, while retaining
         low-level skill-conditioned policy learning for fair comparisons. Unsurprisingly, LISA+KISA achieves a significant performance improvement with annotated demonstrations, particularly in tasks with longer horizons.
     
+    <hr style="border-top: 5px dotted #b8b8b8;">
+    
     <h2 class="title is-3">Typical Cases</h2>
-    
+
+    <h3 class="title is-4">Success Case</h3>
+    <div>
+      <select onchange="changeVideo('success', this)">
+        <option value="videos/frankakitchen.mp4">FrankaKitchen0</option>
+        <option value="videos/blueberry.mp4">BrdigeData0_Blueberry</option>
+      </select>
+
+      <video id="successVideoPlayer" controls>
+        <source id="successVideoSource" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
     <h3 class="title is-4">Failure Case</h3>
-    
-    <select onchange="changeVideo(this)">
-      <option value="videos/calvin.mp4">Calvin</option>
-      <option value="videos/cauliflowers.mp4">Cauliflowers</option>
-    </select>
-  
-    <video id="videoPlayer" controls>
-      <source id="videoSource" src="" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  
+    <div>
+      <select onchange="changeVideo('failure', this)">
+        <option value="videos/calvin.mp4">CALVIN0</option>
+        <option value="videos/cauliflowers.mp4">BrdigeData0_Cauliflowers</option>
+      </select>
+
+      <video id="failureVideoPlayer" controls>
+        <source id="failureVideoSource" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
     <script>
-      function changeVideo(selectElement) {
-        var videoPlayer = document.getElementById("videoPlayer");
-        var videoSource = document.getElementById("videoSource");
-  
+      function changeVideo(type, selectElement) {
+        var videoPlayerId = type === 'success' ? 'successVideoPlayer' : 'failureVideoPlayer';
+        var videoSourceId = type === 'success' ? 'successVideoSource' : 'failureVideoSource';
+        
+        var videoPlayer = document.getElementById(videoPlayerId);
+        var videoSource = document.getElementById(videoSourceId);
+
         // 获取所选视频的文件路径
         var selectedVideo = selectElement.value;
-  
+
         // 更新视频的src属性
         videoSource.src = selectedVideo;
-  
+
         // 重新加载视频
         videoPlayer.load();
-  
+
         // 播放视频
         videoPlayer.play();
       }
     </script>
-    
+
+
     <hr style="border-top: 5px dotted #b8b8b8;">
 
     <div class="columns is-centered has-text-centered">
