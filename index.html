@@ -274,14 +274,14 @@
       </p>
     </div>
 
-    
 
-    <video controls>
+    <!-- <video controls>
       <source src="videos/blueberry.mp4" type="video/mp4">
       Your browser does not support the video tag.
-    </video>
+    </video> -->
 
-    <video controls>
+    <h3 class="title is-4">Failure Case</h3>
+    <!-- <video controls>
       <source src="videos/calvin.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -289,7 +289,36 @@
     <video controls>
       <source src="videos/cauliflowers.mp4" type="video/mp4">
       Your browser does not support the video tag.
+    </video> -->
+
+    <select onchange="changeVideo(this)">
+      <option value="videos/calvin.mp4">Calvin</option>
+      <option value="videos/cauliflowers.mp4">Cauliflowers</option>
+    </select>
+  
+    <video id="videoPlayer" controls>
+      <source id="videoSource" src="" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
+  
+    <script>
+      function changeVideo(selectElement) {
+        var videoPlayer = document.getElementById("videoPlayer");
+        var videoSource = document.getElementById("videoSource");
+  
+        // 获取所选视频的文件路径
+        var selectedVideo = selectElement.value;
+  
+        // 更新视频的src属性
+        videoSource.src = selectedVideo;
+  
+        // 重新加载视频
+        videoPlayer.load();
+  
+        // 播放视频
+        videoPlayer.play();
+      }
+    </script>
 
     <hr style="border-top: 5px dotted #b8b8b8;">
 
